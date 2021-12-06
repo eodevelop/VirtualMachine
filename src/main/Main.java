@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,20 +13,27 @@ public class Main {
 		while(true) {
 			Scanner scan = new Scanner(System.in);
 
-			System.out.print("파일명 : ");
-			String fileNm = scan.nextLine();
+			System.out.print("폴더명 : ");
+			String directoryNm = scan.nextLine();
 			
-			if("exit".equals(fileNm)) {
+			if("exit".equals(directoryNm)) {
 				return;
 			}
 			
 			FileUtils fileUtils = new FileUtils();
 			
-			List<String> lines = fileUtils.getLine(fileNm);
+			File directory = new File(directoryNm);
 			
-//			ParserModule parserModule = new ParserModule(lines);
+			for(File file : directory.listFiles()) {
+				file.getName().contains(".vm");
+				List<String> lines = fileUtils.getLine(directoryNm);
+				
+				ParserModule parserModule = new ParserModule(lines);
 //			String hackCode = parserModule.assemble();
-//			fileUtils.writeFile(fileNm.split("[.]")[0] + ".asm" , hackCode);
+//			fileUtils.writeFile(fileNm.split("[.]")[0] + ".asm" , hackCode);				
+			}
+			
+			
 		}
 	}
 }
