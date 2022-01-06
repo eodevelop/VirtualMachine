@@ -14,12 +14,25 @@ public class ParserModule {
 	}
 	
 	public String parse() {
+		String returnValue = "";
+		
 		for (String line : this.lines) {
 			currentLine = line.trim();
-		
+			
+			ArithmeticCommand command = commandType(currentLine);
+			
+			if(command.equals(ArithmeticCommand.C_EMPTY)) {
+				continue;
+			}
+			
+			String arg1 = arg1(currentLine);
+			String arg2 = arg2(currentLine);
+			
+			returnValue += "//" + currentLine + "\n";
+			returnValue += codeModule.getCode(command, arg1, arg2);
 		}
 		
-		return "";
+		return returnValue;
 	}
 	
 	private ArithmeticCommand commandType(String commandStr) {
