@@ -25,15 +25,14 @@ public class Main {
 			File directory = new File(directoryNm);
 			
 			for(File file : directory.listFiles()) {
-				file.getName().contains(".vm");
-				List<String> lines = fileUtils.getLine(directoryNm);
-				
-				ParserModule parserModule = new ParserModule(lines);
-//			String hackCode = parserModule.assemble();
-//			fileUtils.writeFile(fileNm.split("[.]")[0] + ".asm" , hackCode);				
-			}
-			
-			
+				if(file.getName().contains(".vm")) {
+					List<String> lines = fileUtils.getLine(file.getName());
+					String fileName = file.getName().split("[.]")[0];
+					ParserModule parserModule = new ParserModule(lines, fileName);
+					String asm = parserModule.parse();
+					fileUtils.writeFile(fileName + ".asm" , asm);
+				}
+			}	
 		}
 	}
 }

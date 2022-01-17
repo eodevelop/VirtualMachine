@@ -7,10 +7,11 @@ import enums.ArithmeticCommand;
 public class ParserModule {
 	private List<String> lines;
 	private String currentLine;
-	private CodeWriterModule codeModule = new CodeWriterModule();
+	private CodeWriterModule codeModule;
 	
-	public ParserModule(List<String> lines) {
+	public ParserModule(List<String> lines, String fileName) {
 		this.lines = lines;
+		this.codeModule = new CodeWriterModule(fileName);
 	}
 	
 	public String parse() {
@@ -29,7 +30,7 @@ public class ParserModule {
 			String arg2 = arg2(currentLine);
 			
 			returnValue += "//" + currentLine + "\n";
-			returnValue += codeModule.getCode(command, arg1, arg2);
+			returnValue += codeModule.getCode(currentLine, command, arg1, arg2);
 		}
 		
 		return returnValue;
